@@ -1,0 +1,7 @@
+C:\Users\Ira\source\repos\seabattle\seabattle\bin\Debug\seabattle.exe.config
+C:\Users\Ira\source\repos\seabattle\seabattle\bin\Debug\seabattle.exe
+C:\Users\Ira\source\repos\seabattle\seabattle\bin\Debug\seabattle.pdb
+C:\Users\Ira\source\repos\seabattle\seabattle\obj\Debug\seabattle.csprojAssemblyReference.cache
+C:\Users\Ira\source\repos\seabattle\seabattle\obj\Debug\seabattle.csproj.CoreCompileInputs.cache
+C:\Users\Ira\source\repos\seabattle\seabattle\obj\Debug\seabattle.exe
+C:\Users\Ira\source\repos\seabattle\seabattle\obj\Debug\seabattle.pdb
