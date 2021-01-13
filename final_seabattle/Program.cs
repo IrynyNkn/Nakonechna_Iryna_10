@@ -27,9 +27,7 @@ namespace final_seabattle
             char[,] compbattleField = createbattlefield(cbattleFieldarray);
             char[,] monitorplayer = createbattlefield(monarr1);
             char[,] monitorcomp = createbattlefield(monarr2);
-            //drawfield(letters, nums, battleField);
-            //drawfield(letters, nums, compbattleField);
-            //Random randcor = new Random();
+            
             drawfield(letters, nums, battleFieldarray,player);
             drawComputerField(letters, nums,cbattleFieldarray,computer);
             Settingship(battleField,letters,nums,cbattleFieldarray, computer,player);
@@ -97,13 +95,20 @@ namespace final_seabattle
                             int v = Convert.ToInt32(Console.ReadLine());
                             Console.Write($"Enter rotation: \n1.Verical\n2.Horizontal\n");
                             int rotate = Convert.ToInt32(Console.ReadLine());
-                            if (rotate == 2)
+                            switch (rotate)
                             {
-                                rotateVert(ref battleField, h, v, i, i, ref exception, ref exc_cross, bot);
-                            }
-                            if (rotate == 1)
-                            {
-                                rotateHor(ref battleField, h, v, i, i, ref exception, ref exc_cross, bot);
+                                case 1:
+                                    rotateHor(ref battleField, h, v, i, i, ref exception, ref exc_cross, bot);
+                                    exc = true;
+                                    break;
+                                case 2:
+                                    rotateVert(ref battleField, h, v, i, i, ref exception, ref exc_cross, bot);
+                                    exc = true;
+                                    break;
+                                default:
+                                    Console.WriteLine("Wrong rotation! Enter 1 or 2");
+                                    exc = false;
+                                    break;
                             }
                             if (exception != true && exc_cross != true && exc != false)
                             {
@@ -111,9 +116,10 @@ namespace final_seabattle
                                 drawfield(letters, nums, battleField, player);
                                 drawComputerField(letters, nums, cbattleFieldarray,computer);
                             }
-                            //drawfield(letters, nums, battleField);
-                            //drawComputerField(letters, nums, cbattleFieldarray);
-                            exc = true;
+                            if (exc != false)
+                            {
+                                exc = true;
+                            }
                         }
                         catch
                         {
@@ -460,7 +466,6 @@ namespace final_seabattle
                     if (battlefieldcomp[v, h] == '_')
                     {
                         monitorcomp[v, h] = 'o';
-                        //drawfield(letters, nums, monitorcomp);
                         Console.Clear();
                         drawfield(letters, nums, monitorplayer,player);
                         drawComputerField(letters, nums, monitorcomp,computer);
@@ -474,7 +479,6 @@ namespace final_seabattle
                     else if (battlefieldcomp[v, h] == '#')
                     {
                         monitorcomp[v, h] = 'X';
-                        //drawfield(letters, nums, monitorcomp);
                         Console.Clear();
                         drawfield(letters, nums, monitorplayer, player);
                         drawComputerField(letters, nums, monitorcomp,computer);
@@ -541,87 +545,91 @@ namespace final_seabattle
             Random rand = new Random();
             int h = rand.Next(0, 10);
             int v = rand.Next(0, 10);
+            
             while (true)
             {
-                if (battlefieldplayer[v, h] == '_')
-                {
-                    monitorplayer[v, h] = 'o';
-                    //drawfield(letters, nums, monitorplayer);
-                    Console.Clear();
-                    drawfield(letters, nums, monitorplayer,player);
-                    drawComputerField(letters, nums, monitorcomp, comp);
-                    break;
-                }
-                else if (battlefieldplayer[v, h] == 'o')
-                {
-                    continue;
-                }
-                else if (battlefieldplayer[v, h] == '#')
-                {
-                    int direction = rand.Next(1, 3);
-                    monitorplayer[v, h] = 'X';
-                    count++;
-                    if (count == 20)
+                try {
+                    if (battlefieldplayer[v, h] == '_')
                     {
-                        //drawfield(letters, nums, monitorplayer);
+                        monitorplayer[v, h] = 'o';
                         Console.Clear();
                         drawfield(letters, nums, monitorplayer, player);
                         drawComputerField(letters, nums, monitorcomp, comp);
-                        endgame = true;
                         break;
                     }
-                    for (int i = 1; ; i++)
+                    else if (battlefieldplayer[v, h] == 'o')
                     {
-                        if (direction == 1 && v + i < 10)
-                        {
-                            if (battlefieldplayer[v + i, h] == '_')
-                            {
-                                monitorplayer[v + i, h] = 'o';
-                                break;
-                            }
-                            else if (battlefieldplayer[v + i, h] == '#')
-                            {
-                                monitorplayer[v + i, h] = 'X';
-                                count++;
-                                if (count == 20)
-                                {
-                                    endgame = true;
-                                    break;
-                                }
-                                else
-                                {
-                                    continue;
-                                }
-                            }
-                        }
-                        if (direction == 2 && h + i < 10)
-                        {
-                            if (battlefieldplayer[v, h + i] == '_')
-                            {
-                                monitorplayer[v, h + i] = 'o';
-                                break;
-                            }
-                            else if (battlefieldplayer[v, h + i] == '#')
-                            {
-                                monitorplayer[v, h + i] = 'X';
-                                count++;
-                                if (count == 20)
-                                {
-                                    endgame = true;
-                                    break;
-                                }
-                                else
-                                {
-                                    continue;
-                                }
-                            }
-                        }
+                        continue;
                     }
-                    //drawfield(letters, nums, monitorplayer);
-                    Console.Clear();
-                    drawfield(letters, nums, monitorplayer,player);
-                    drawComputerField(letters, nums, monitorcomp, comp);
-                    break;
+                    else if (battlefieldplayer[v, h] == '#')
+                    {
+                        int direction = rand.Next(1, 3);
+                        monitorplayer[v, h] = 'X';
+                        count++;
+                        if (count == 20)
+                        {
+                            Console.Clear();
+                            drawfield(letters, nums, monitorplayer, player);
+                            drawComputerField(letters, nums, monitorcomp, comp);
+                            endgame = true;
+                            break;
+                        }
+                        for (int i = 1; ; i++)
+                        {
+                            if (direction == 1 && v + i < 10)
+                            {
+                                if (battlefieldplayer[v + i, h] == '_')
+                                {
+                                    monitorplayer[v + i, h] = 'o';
+                                    break;
+                                }
+                                else if (battlefieldplayer[v + i, h] == '#')
+                                {
+                                    monitorplayer[v + i, h] = 'X';
+                                    count++;
+                                    if (count == 20)
+                                    {
+                                        endgame = true;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        continue;
+                                    }
+                                }
+                            }
+                            if (direction == 2 && h + i < 10)
+                            {
+                                if (battlefieldplayer[v, h + i] == '_')
+                                {
+                                    monitorplayer[v, h + i] = 'o';
+                                    break;
+                                }
+                                else if (battlefieldplayer[v, h + i] == '#')
+                                {
+                                    monitorplayer[v, h + i] = 'X';
+                                    count++;
+                                    if (count == 20)
+                                    {
+                                        endgame = true;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        continue;
+                                    }
+                                }
+                            }
+                        }
+                        Console.Clear();
+                        drawfield(letters, nums, monitorplayer, player);
+                        drawComputerField(letters, nums, monitorcomp, comp);
+                        break;
+                    }
+                }
+                catch
+                {
+                    continue;
                 }
             }
         }
